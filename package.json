@@ -1,0 +1,22 @@
+{
+  "name": "create-node-server",
+  "version": "1.0.0",
+  "description": "Fast hosting server side application with a simple command",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd bin && NODE_ENV=development node create-node-script.js dev",
+    "start": "cd bin && NODE_ENV=development node create-node-script.js start"
+  },
+  "author": "Bryan Huang",
+  "license": "ISC",
+  "dependencies": {
+    "babel-register": "^6.26.0",
+    "chalk": "^2.4.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "nodemon": "^1.18.9"
+  }
+}
