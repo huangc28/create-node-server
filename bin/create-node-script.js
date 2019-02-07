@@ -14,13 +14,21 @@ const scripts = args.slice(1)
 // in the above case, a b c are the arguments for "start" command.
 // try to match a supported script, if a match is found, execute the corresponding script.
 const scriptIndex = scripts.findIndex(
-  script => script === 'start' || script === 'test'
+  script => script === 'start' || script === 'test' || script === 'build'
 )
 
 const { spawnSync } = require('child_process')
 const script = scripts[scriptIndex]
+
+// const whichNode = script => {
+//   return script === 'start'
+//     ? 'nodemon'
+//     : 'node'
+// }
+
 switch (script) {
   case 'test':
+  case 'build':
   case 'start': {
     // nodemon --exec babel-node src ---> how to spin up the application in src?
     // we use babel-node to host up the application straight ahead.
@@ -32,7 +40,7 @@ switch (script) {
       'nodemon',
       [
         '--exec',
-        'babel-node',
+        'node',
         require.resolve('../scripts/' + scripts[scriptIndex] + '.js'),
         scripts.slice(scriptIndex + 1).join(' '),
       ],
