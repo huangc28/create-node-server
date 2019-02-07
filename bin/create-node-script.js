@@ -1,8 +1,6 @@
-// 1. npm start ---> cd bin && node create-node-script.js
-// 2. read .env file and expose it to process.env
-// 3. transpile this project with babel presets
-// 4. import the express application.
-// 5. host up the application with http server
+#!/usr/bin/env node
+'use strict'
+
 const args = process.argv
 const scripts = args.slice(1)
 
@@ -14,7 +12,7 @@ const scripts = args.slice(1)
 // in the above case, a b c are the arguments for "start" command.
 // try to match a supported script, if a match is found, execute the corresponding script.
 const scriptIndex = scripts.findIndex(
-  script => script === 'start' || script === 'test' || script === 'build'
+  script => script === 'start' || script === 'test' || script === 'build' || script === 'serve'
 )
 
 const { spawnSync } = require('child_process')
@@ -26,10 +24,14 @@ const whichNode = script => (
     : 'node'
 )
 
+
+let result = null
+
 switch (script) {
   case 'test':
+  case 'serve':
   case 'build': {
-    const result = spawnSync(
+    result = spawnSync(
       whichNode(script),
       [
         require.resolve('../scripts/' + scripts[scriptIndex] + '.js'),
@@ -40,14 +42,6 @@ switch (script) {
       },
     )
 
-    if (result.signal) {
-      if (result.signal === 'SIGKILL') {
-        console.log('the application failed to spin up because the child process exits too early')
-      }
-
-      process.exit(1)
-    }
-
     break
   }
   case 'start': {
@@ -57,7 +51,7 @@ switch (script) {
 
     // use nodemon and babel-node to spin up the application
     // execute the corresponding script
-    const result = spawnSync(
+    result = spawnSync(
       whichNode(script),
       [
         '--exec',
@@ -69,14 +63,6 @@ switch (script) {
         stdio: 'inherit',
       },
     )
-
-    if (result.signal) {
-      if (result.signal === 'SIGKILL') {
-        console.log('the application failed to spin up because the child process exits too early')
-      }
-
-      process.exit(1)
-    }
   }
   break
   default: {
@@ -84,4 +70,18 @@ switch (script) {
     console.log('Unknown script:' + script)
     break
   }
+}
+
+if (result && result.signal) {
+  if (result.signal === 'SIGKILL') {
+    console.log('the application failed to spin up because the child process exits too early')
+  }
+
+  if (result.signal === 'SIGTERM') {
+    console.log('the application failed to build. ' +
+      'Someone might have called `kill` or `killall`, ' +
+      'or the system could be shutting down.')
+  }
+
+  process.exit(1)
 }
