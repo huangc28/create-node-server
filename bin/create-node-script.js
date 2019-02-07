@@ -21,28 +21,18 @@ const { spawnSync } = require('child_process')
 const script = scripts[scriptIndex]
 switch (script) {
   case 'test':
-  case 'dev': {
+  case 'start': {
     // nodemon --exec babel-node src ---> how to spin up the application in src?
-    // we need to resolve "src" path of the process that spins up this script
+    // we use babel-node to host up the application straight ahead.
+    // we need to resolve "src" path of the process that spins up this script.
+
+    // use nodemon and babel-node to spin up the application
+    // execute the corresponding script
     const result = spawnSync(
       'nodemon',
       [
         '--exec',
-        'babel-node'
-      ]
-    )
-  }
-  case 'start': {
-    // use nodemon and babel-node to spin up the application
-    // const whichNode = process.env.NODE_ENV === 'development'
-    //   ? 'nodemon --exec babel-node'
-    //   :
-
-
-    // execute the corresponding script
-    const result = spawnSync(
-      'node',
-      [
+        'babel-node',
         require.resolve('../scripts/' + scripts[scriptIndex] + '.js'),
         scripts.slice(scriptIndex + 1).join(' '),
       ],
