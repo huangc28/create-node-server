@@ -4,11 +4,13 @@ const http = require('http')
 
 const { appPaths } = require('../utils/path')
 
-const config = require('../config/babel.json')
+const config = JSON.parse(
+  fs.readFileSync(resolve(__dirname, '..', 'config/.babelrc'
+), 'utf-8'));
 // setting the root directory for babel to properly transpile the "application"
 config.cwd = appPaths.appSrc
 
-// requires babel require hook, import babel and start to transpile code with babel presets.
+// requires babel hook, import babel and start to transpile code with babel presets.
 require('@babel/register')(config)
 
 // validate the application, it has to be instanceof app

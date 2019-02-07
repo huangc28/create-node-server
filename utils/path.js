@@ -12,7 +12,7 @@ const appPaths = {
   appPath: resolveApp('.'),
   appSrc: resolveApp('src'),
   distPath: resolveApp('dist'),
-  babelConfigPath: resolveApp('config/babel.json'),
+  babelConfigPath: resolveApp('config/.babelrc'),
 }
 
 const resolveOwn = relativePath => path.resolve(__dirname, '..', relativePath)

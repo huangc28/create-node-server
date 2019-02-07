@@ -20,9 +20,36 @@ const scriptIndex = scripts.findIndex(
 const { spawnSync } = require('child_process')
 const script = scripts[scriptIndex]
 
+const whichNode = script => (
+  script === 'start'
+    ? 'nodemon'
+    : 'node'
+)
+
 switch (script) {
   case 'test':
-  case 'build':
+  case 'build': {
+    const result = spawnSync(
+      whichNode(script),
+      [
+        require.resolve('../scripts/' + scripts[scriptIndex] + '.js'),
+        scripts.slice(scriptIndex + 1).join(' '),
+      ],
+      {
+        stdio: 'inherit',
+      },
+    )
+
+    if (result.signal) {
+      if (result.signal === 'SIGKILL') {
+        console.log('the application failed to spin up because the child process exits too early')
+      }
+
+      process.exit(1)
+    }
+
+    break
+  }
   case 'start': {
     // nodemon --exec babel-node src ---> how to spin up the application in src?
     // we use babel-node to host up the application straight ahead.
@@ -31,7 +58,7 @@ switch (script) {
     // use nodemon and babel-node to spin up the application
     // execute the corresponding script
     const result = spawnSync(
-      'nodemon',
+      whichNode(script),
       [
         '--exec',
         'node',
