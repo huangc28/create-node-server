@@ -20,12 +20,6 @@ const scriptIndex = scripts.findIndex(
 const { spawnSync } = require('child_process')
 const script = scripts[scriptIndex]
 
-// const whichNode = script => {
-//   return script === 'start'
-//     ? 'nodemon'
-//     : 'node'
-// }
-
 switch (script) {
   case 'test':
   case 'build':
