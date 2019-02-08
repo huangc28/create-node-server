@@ -1,19 +1,19 @@
 'use strict'
 
 const rimraf = require('rimraf')
-const { spawnSync } = require('child_process')
+const cp = require('child_process')
 
-const { appPaths } = require('../utils/path')
+const paths = require('../utils/path')
 
-rimraf.sync(appPaths.distPath)
+rimraf.sync(paths.appPaths.distPath)
 
 // @todo catch error for this process
-spawnSync(
-  appPaths.nodeModulePath + '/babel',
+const spawn = cp.spawnSync(
+  paths.appPaths.nodeModulePath + '/babel',
   [
     '--config-file',
-    appPaths.babelConfigPath,
-    appPaths.appSrc,
+    paths.appPaths.babelConfigPath,
+    paths.appPaths.appSrc,
     '-d',
     'dist'
   ],
@@ -21,3 +21,8 @@ spawnSync(
     stdio: 'inherit',
   },
 )
+
+if (spawn.error) {
+  console.log('unable to build application with babel. exit with error:' + spawn.error)
+  process.exit()
+}
