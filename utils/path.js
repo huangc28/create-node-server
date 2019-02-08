@@ -9,10 +9,12 @@ const appDirectory = fs.realpathSync(process.cwd())
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath)
 
 const appPaths = {
+  dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   appSrc: resolveApp('src'),
   distPath: resolveApp('dist'),
   babelConfigPath: resolveApp('config/.babelrc'),
+  nodeModulePath: resolveApp('node_modules/.bin')
 }
 
 const resolveOwn = relativePath => path.resolve(__dirname, '..', relativePath)

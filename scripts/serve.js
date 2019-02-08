@@ -3,8 +3,9 @@
 const fs = require('fs')
 const http = require('http')
 
+require('../config/env')
 const paths = require('../utils/path')
-
+const PORT = process.env.PORT || 3000
 const distExists = fs.existsSync(paths.appPaths.distPath)
 
 if (!distExists) {
@@ -17,7 +18,7 @@ if (!distExists) {
 
 const app = require(paths.appPaths.distPath)
 const server = http.createServer(app)
-server.listen(3000, function(err) {
+server.listen(PORT, function(err) {
   if (err) {
     console.log(err.message)
   }

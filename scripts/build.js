@@ -9,7 +9,7 @@ rimraf.sync(appPaths.distPath)
 
 // @todo catch error for this process
 spawnSync(
-  '/Users/apple/Documents/self-trains/create-node-server/node_modules/.bin/babel',
+  appPaths.nodeModulePath + '/babel',
   [
     '--config-file',
     appPaths.babelConfigPath,
