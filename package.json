@@ -24,12 +24,6 @@
     "nodemon": "^1.18.9",
     "rimraf": "^2.6.3"
   },
-  "bin": {
-    "create-node-server": "create-node-script.js"
-  },
-  "directories": {
-    "test": "tests"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/huangc28/create-node-server.git"
