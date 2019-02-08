@@ -3,9 +3,9 @@
   "version": "1.1.0",
   "description": "Fast hosting server side application with a simple command",
   "scripts": {
-    "build": "NODE_ENV=production node bin/create-node-script.js build",
-    "serve": "npm run build && node bin/create-node-script.js serve",
-    "start": "NODE_ENV=development node bin/create-node-script.js start"
+    "build": "NODE_ENV=production node packages/create-node-server/bin/create-node-script.js build",
+    "serve": "node packages/create-node-server/bin/create-node-script.js serve",
+    "start": "NODE_ENV=development node packages/create-node-server/bin/create-node-script.js start"
   },
   "author": "Bryan Huang",
   "license": "ISC",

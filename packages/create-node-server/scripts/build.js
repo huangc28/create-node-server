@@ -12,7 +12,7 @@ const spawn = cp.spawnSync(
   paths.appPaths.nodeModulePath + '/babel',
   [
     '--config-file',
-    paths.appPaths.babelConfigPath,
+    paths.ownPaths.babelConfig,
     paths.appPaths.appSrc,
     '-d',
     'dist'
