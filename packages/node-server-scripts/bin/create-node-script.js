@@ -18,7 +18,7 @@ const scriptIndex = scripts.findIndex(
 const { spawnSync } = require('child_process')
 const script = scripts[scriptIndex]
 
-const whichNode = script => (
+const whichCommand = script => (
   script === 'start'
     ? 'nodemon'
     : 'node'
@@ -32,7 +32,7 @@ switch (script) {
   case 'serve':
   case 'build': {
     result = spawnSync(
-      whichNode(script),
+      whichCommand(script),
       [
         require.resolve('../scripts/' + scripts[scriptIndex] + '.js'),
         scripts.slice(scriptIndex + 1).join(' '),
@@ -52,7 +52,7 @@ switch (script) {
     // use nodemon and babel-node to spin up the application
     // execute the corresponding script
     result = spawnSync(
-      whichNode(script),
+      whichCommand(script),
       [
         '--exec',
         'node',
