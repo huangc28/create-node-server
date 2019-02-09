@@ -1,0 +1,10 @@
+{
+  "name": "server-scripts",
+  "version": "0.1.0",
+  "description": "Entry script to handle corresponding action",
+  "bin": {
+    "server-scripts": "./bin/create-node-script.js"
+  },
+  "author": "Bryan Huang <huangchiheng@gmail.com>",
+  "license": "ISC"
+}

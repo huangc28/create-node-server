@@ -1,4 +1,4 @@
-## Create node server
+# Create node server
 
 Waste no time on setting up babel, various presets, expressjs, typescript...etc.
 Start developing your server side code fast.
@@ -11,6 +11,10 @@ for development. Just dive into the development straigh ahead.
 
 This project is in it's early stage. Much of the work are left to be done. PRs and suggestions are
 needed!
+
+## Installation
+
+`npm i create-node-server`
 
 ## Start development
 

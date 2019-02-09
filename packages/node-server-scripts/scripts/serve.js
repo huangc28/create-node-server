@@ -1,5 +1,8 @@
 'use strict'
 
+process.env.NODE_ENV = 'production'
+process.env.BABEL_ENV = 'development'
+
 const fs = require('fs')
 const http = require('http')
 

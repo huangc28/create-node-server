@@ -1,5 +1,9 @@
 'use strict'
 
+// build process should always performed in "production"
+process.env.NODE_ENV = 'production'
+process.env.BABEL_ENV = 'production'
+
 const rimraf = require('rimraf')
 const cp = require('child_process')
 
