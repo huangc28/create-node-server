@@ -82,7 +82,8 @@ function createApp(name) {
   // create directory if the directory does not exist.
   fs.ensureDirSync(root)
 
-  console.log(chalk.green(`creating node project in ${root}...`))
+  console.log()
+  console.log(chalk.green(`creating node project in: ${root} ...`))
   console.log()
 
   // write packageJson to path specified
@@ -114,35 +115,52 @@ function createApp(name) {
     '@huangc28/create-node-server'
   ]
 
+  console.log()
+  console.log(chalk.green(`installing dependencies... ${dependencies.join(',')}...`))
+
   install(
     root,
     dependencies,
   )
+  .catch(command => {
+    console.log(chalk.red('abort execution...'))
+    console.log(chalk.red(`failed on command: ${command}`))
+  })
 }
 
 function install (
   root,
   dependencies,
 ) {
-  const command = 'npm'
-  const args = [
-    'install',
-    'save',
-    '--save-exact',
-  ].concat(dependencies)
+  return new Promise((resolve, reject) => {
+    const command = 'npm'
+    const args = [
+      'install',
+      'save',
+      '--save-exact',
+    ].concat(dependencies)
 
-  // change the directory to project directory to perform installation
-  process.chdir(root)
+    // change the directory to project directory to perform installation
+    process.chdir(root)
 
-  const spawn = cp.spawn(
-    command,
-    args,
-    {
-      stdio: 'inherit'
-    }
-  )
+    const spawn = cp.spawn(
+      command,
+      args,
+      {
+        stdio: 'inherit'
+      }
+    )
 
-  spawn.on('close', code => {
-    console.log('code', code)
+    spawn.on('close', code => {
+      if (code !== 0) {
+        reject({
+          command: `command ${args.join(' ')}`
+        })
+
+        return
+      }
+
+      resolve()
+    })
   })
 }
