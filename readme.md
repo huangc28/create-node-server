@@ -44,3 +44,4 @@ It serves the production script located in your **dist** directory.
 4. what if user wants to provide it's own .babelrc? we should try to check the existence of user's own
 .babelrc file and merged with the base babelrc.
 5. use webpack to build production script. babel presets should be generate dynamically. babel-cli does not support reading dynamic content of babel config.
+6. publish `packages/create-node-server` to npm for both `npx` and `npm` to run the executable.
