@@ -1,9 +1,0 @@
-{
-  "name": "myapp",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@huangc28/server-scripts": "0.1.2",
-    "save": "2.3.3"
-  }
-}
