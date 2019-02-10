@@ -7,8 +7,42 @@
 // 4. extends eslint rules
 const fs = require('fs-extra')
 const path = require('path')
+const cp = require('child_process')
 
 const paths = require('../utils/path')
+
+function installDependencies (dependencies) {
+  const command = 'npm'
+  const args = [
+    'install',
+    '--no-save',
+  ]
+  .concat(dependencies)
+  .concat([
+    '--loglevel',
+    'verbose',
+  ])
+
+  return new Promise((resolve, reject) => {
+    const spawn = cp.spawn(
+      command,
+      args,
+      {
+        stdio: 'inherit'
+      }
+    )
+
+    spawn.on('close', code => {
+      if (code !== 0) {
+        reject({
+          command: `${command} ${args.join(' ')}`
+        })
+        return
+      }
+      resolve()
+    })
+  })
+}
 
 module.exports = (
   rootPath,
@@ -18,6 +52,7 @@ module.exports = (
   const entryFilename = path.resolve(srcDir, 'index.js')
 
   const packageJson = require(paths.appPaths.packageJsonPath)
+  const depPackageJson = require(paths.ownPaths.packageJsonPath)
 
   fs.ensureDirSync(srcDir)
   fs.close(fs.openSync(entryFilename, 'w'))
@@ -35,4 +70,9 @@ module.exports = (
     path.join(rootPath, 'package.json'),
     JSON.stringify(packageJson, null, 2) + os.EOL,
   )
+
+  installDependencies(depPackageJson.dependencies.concat(depPackageJson.devDependencies))
+    .then(() => {
+      console.log('done initializing')
+    })
 }

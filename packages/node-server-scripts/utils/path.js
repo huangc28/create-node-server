@@ -23,6 +23,7 @@ const ownPaths = {
   ownPath: resolveOwn('.'),
   configPath: resolveOwn('config'),
   babelConfig: resolveOwn('config/.babelrc'),
+  packageJsonPath: resolveOwn('package.json'),
 }
 
 module.exports = {
