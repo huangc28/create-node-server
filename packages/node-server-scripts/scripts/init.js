@@ -11,13 +11,17 @@ const cp = require('child_process')
 
 const paths = require('../utils/path')
 
+const depsToString = deps => {
+  return Object.keys(deps).reduce((accu, curr) => accu.push(`${curr}@${deps[curr]}`), [])
+}
+
 function installDependencies (dependencies) {
   const command = 'npm'
   const args = [
     'install',
     '--no-save',
   ]
-  .concat(dependencies)
+  .concat(depsToString(dependencies))
   .concat([
     '--loglevel',
     'verbose',
@@ -71,7 +75,9 @@ module.exports = (
     JSON.stringify(packageJson, null, 2) + os.EOL,
   )
 
-  installDependencies(depPackageJson.dependencies.concat(depPackageJson.devDependencies))
+  const dependencies = Object.assign({}, depPackageJson.dependencies, depPackageJson.devDependencies)
+
+  installDependencies(dependencies)
     .then(() => {
       console.log('done initializing')
     })
