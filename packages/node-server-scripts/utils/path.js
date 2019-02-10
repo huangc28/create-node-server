@@ -14,7 +14,8 @@ const appPaths = {
   appPath: resolveApp('.'),
   appSrc: resolveApp('src'),
   distPath: resolveApp('dist'),
-  nodeModulePath: resolveApp('node_modules/.bin')
+  nodeModulePath: resolveApp('node_modules/.bin'),
+  packageJsonPath: resolveApp('package.json'),
 }
 
 const resolveOwn = relativePath => path.resolve(__dirname, '..', relativePath)

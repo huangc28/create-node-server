@@ -1,10 +1,23 @@
 {
-  "name": "server-scripts",
-  "version": "0.1.0",
+  "name": "@huangc28/server-scripts",
+  "version": "0.1.2",
   "description": "Entry script to handle corresponding action",
   "bin": {
     "server-scripts": "./bin/create-node-script.js"
   },
   "author": "Bryan Huang <huangchiheng@gmail.com>",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "chalk": "^2.4.2",
+    "dotenv": "^6.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/register": "^7.0.0",
+    "nodemon": "^1.18.9",
+    "rimraf": "^2.6.3"
+  }
 }

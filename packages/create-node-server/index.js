@@ -47,9 +47,6 @@ if (!projectName) {
   process.exit(1)
 }
 
-/**
- * Check if the directory name is valid npm package name
- */
 const checkPackageNameValid = name => {
   const result = validateProjectName(name)
 
@@ -93,15 +90,6 @@ function createApp(name) {
     private: true,
   }
 
-  // appending application command to project package.json scripts
-  const scripts = {
-    start: 'server-scripts start',
-    build: 'server-scripts build',
-    serve: 'server-scripts serve',
-  }
-
-  packageJson.scripts = scripts
-
   fs.writeFileSync(
     path.join(root, 'package.json'),
     JSON.stringify(packageJson, null, 2) + os.EOL,
@@ -112,19 +100,70 @@ function createApp(name) {
   // if --use-typescript is specified, we would push typescript
   // realtive dependencies to "dependencies" array
   const dependencies = [
-    '@huangc28/create-node-server'
+    '@huangc28/server-scripts'
   ]
 
   console.log()
-  console.log(chalk.green(`installing dependencies... ${dependencies.join(',')}...`))
+  console.log(chalk.cyan(`installing dependencies... ${dependencies.join(',')}...`))
+  console.log()
 
   install(
     root,
     dependencies,
   )
-  .catch(command => {
-    console.log(chalk.red('abort execution...'))
-    console.log(chalk.red(`failed on command: ${command}`))
+  .then(async () => {
+    // dependencies has successfully installed to project directory.
+    // we now need to run "node server-scripts init" to initialize
+    //   1. package.json scripts
+    //   2. "jest" test framework
+    //   3. folder structure, create "src" directory with "index.js" inside.
+    const err = await executeInitScript(root, dependencies).catch(err => err)
+
+    if (err) {
+      throw err
+    }
+  })
+  .catch(err => {
+    console.log(chalk.red(`failed on command: ${err.command}`))
+    console.log(chalk.red('abort execution'))
+
+    process.exit(1)
+  })
+}
+
+function executeInitScript(
+  root,
+  dependencies,
+) {
+  return new Promise((resolve, reject) => {
+    const args = [
+      '-e',
+      `
+        var init = require('@huangc28/server-scripts/scripts/init.js');
+        init.apply(null, JSON.parse(process.argv[1]));
+      `,
+      '--',
+      JSON.stringify([root, dependencies]),
+    ]
+
+    const spawn = cp.spawn(
+      process.execPath,
+      args,
+      {
+        cwd: process.cwd(),
+        stdio: 'inherit',
+      }
+    )
+
+    spawn.on('close', code => {
+      if (code !== 0) {
+        reject({
+          command: [`${process.execPath}`].concat(args).join(' ')
+        })
+        return
+      }
+      resolve()
+    })
   })
 }
 
@@ -146,9 +185,7 @@ function install (
     const spawn = cp.spawn(
       command,
       args,
-      {
-        stdio: 'inherit'
-      }
+      { stdio: 'inherit' },
     )
 
     spawn.on('close', code => {
@@ -156,10 +193,8 @@ function install (
         reject({
           command: `command ${args.join(' ')}`
         })
-
         return
       }
-
       resolve()
     })
   })
