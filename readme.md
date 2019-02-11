@@ -7,10 +7,9 @@ I found myself recreating the same server side framework repetitively every time
 start a new project. **create-node-server** integrates the most common tools you'll need
 for development. Just dive into the development straigh ahead.
 
-## Helps needed
+## Early stage!
 
-This project is in it's early stage. Much of the work are left to be done. PRs and suggestions are
-needed!
+This project is in it's early stage. Much of the work are left to be done. PRs and suggestions are welcomed!!
 
 ## Installation
 
@@ -18,7 +17,7 @@ needed!
 
 or if you use npx
 
-`npx @huangc28/node-server myapp`
+`npx @huangc28/create-node-server myapp`
 
 ## Start development
 
