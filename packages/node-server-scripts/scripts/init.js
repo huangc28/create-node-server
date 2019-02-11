@@ -20,6 +20,7 @@ function installDependencies (dependencies) {
   const args = [
     'install',
     '--no-save',
+
   ]
   .concat(depsToString(dependencies))
   .concat([
@@ -75,9 +76,13 @@ module.exports = (
     JSON.stringify(packageJson, null, 2) + os.EOL,
   )
 
-  const dependencies = Object.assign({}, depPackageJson.dependencies, depPackageJson.devDependencies)
+  const depsToBeInstalled = Object.assign(
+    {},
+    depPackageJson.dependencies,
+    depPackageJson.devDependencies,
+  )
 
-  installDependencies(dependencies)
+  installDependencies(depsToBeInstalled)
     .then(() => {
       console.log('done initializing')
     })
