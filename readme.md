@@ -14,7 +14,11 @@ needed!
 
 ## Installation
 
-`npm i create-node-server`
+`npm init @huangc28/node-server myapp`
+
+or if you use npx
+
+`npx @huangc28/node-server myapp`
 
 ## Start development
 
