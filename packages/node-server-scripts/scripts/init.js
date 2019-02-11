@@ -11,9 +11,9 @@ const cp = require('child_process')
 
 const paths = require('../utils/path')
 
-const depsToString = deps => {
-  return Object.keys(deps).reduce((accu, curr) => accu.push(`${curr}@${deps[curr]}`), [])
-}
+const depsToString = deps => Object
+  .keys(deps)
+  .reduce((accu, curr) => accu.push(`${curr}@${deps[curr]}`), [])
 
 function installDependencies (dependencies) {
   const command = 'npm'
