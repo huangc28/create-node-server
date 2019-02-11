@@ -1,6 +1,6 @@
 {
   "name": "@huangc28/server-scripts",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "Entry script to handle corresponding action",
   "bin": {
     "server-scripts": "./bin/create-node-script.js"

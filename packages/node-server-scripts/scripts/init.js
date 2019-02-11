@@ -13,7 +13,7 @@ const paths = require('../utils/path')
 
 const depsToString = deps => Object
   .keys(deps)
-  .reduce((accu, curr) => accu.push(`${curr}@${deps[curr]}`), [])
+  .reduce((accu, curr) => accu.concat(`${curr}@${deps[curr]}`), [])
 
 function installDependencies (dependencies) {
   const command = 'npm'
