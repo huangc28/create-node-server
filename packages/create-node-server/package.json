@@ -1,5 +1,5 @@
 {
-  "name": "create-node-server",
+  "name": "@huangc28/create-node-server",
   "version": "0.0.1",
   "description": "Creates and initialize node server.",
   "bin": {
