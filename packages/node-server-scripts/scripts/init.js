@@ -20,17 +20,17 @@ const depsToString = deps => Object
 
 function installDependencies(dependencies, depType = DEPENDENCIES) {
   const command = 'npm'
-  const args = [
+  let args = [
     'install',
   ]
 
   if (depType === DEV_DEPENDENCIES) {
-    args.concat([
+    args = args.concat([
       '--save-dev',
     ])
   }
 
-  args
+  args = args
     .concat(depsToString(dependencies))
     .concat([
       '--loglevel',
