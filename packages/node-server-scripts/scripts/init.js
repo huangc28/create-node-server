@@ -20,8 +20,6 @@ function installDependencies (dependencies) {
   const command = 'npm'
   const args = [
     'install',
-    '--no-save',
-
   ]
   .concat(depsToString(dependencies))
   .concat([
@@ -90,5 +88,8 @@ module.exports = rootPath => {
   installDependencies(depsToBeInstalled)
     .then(() => {
       console.log('done initializing')
+    })
+    .catch(err => {
+      console.error('abort initialization: ', err)
     })
 }
