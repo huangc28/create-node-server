@@ -12,20 +12,30 @@ const os = require('os')
 
 const paths = require('../utils/path')
 
+const DEV_DEPENDENCIES = 'devDependencies'
+const DEPENDENCIES = 'dependencies'
 const depsToString = deps => Object
   .keys(deps)
   .reduce((accu, curr) => accu.concat(`${curr}@${deps[curr]}`), [])
 
-function installDependencies (dependencies) {
+function installDependencies(dependencies, depType = DEPENDENCIES) {
   const command = 'npm'
   const args = [
     'install',
   ]
-  .concat(depsToString(dependencies))
-  .concat([
-    '--loglevel',
-    'verbose',
-  ])
+
+  if (depType === DEV_DEPENDENCIES) {
+    args.concat([
+      '--save-dev',
+    ])
+  }
+
+  args
+    .concat(depsToString(dependencies))
+    .concat([
+      '--loglevel',
+      'verbose',
+    ])
 
   return new Promise((resolve, reject) => {
     const spawn = cp.spawn(
@@ -79,13 +89,16 @@ module.exports = rootPath => {
     JSON.stringify(packageJson, null, 2) + os.EOL,
   )
 
-  const depsToBeInstalled = Object.assign(
-    {},
-    depPackageJson.dependencies,
-    depPackageJson.devDependencies,
-  )
+  const depsToBeInstalled = {}
+  depsToBeInstalled[DEV_DEPENDENCIES] = depPackageJson.devDependencies
+  depsToBeInstalled[DEPENDENCIES] = depPackageJson.dependencies
 
-  installDependencies(depsToBeInstalled)
+  const deps = Object
+    .keys(depsToBeInstalled)
+    .map(depType => installDependencies(depsToBeInstalled[depType], depType))
+
+  Promise
+    .all(deps)
     .then(() => {
       console.log('done initializing')
     })
