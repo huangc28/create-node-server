@@ -15,9 +15,9 @@ const PORT = process.env.PORT || 3000
 config.cwd = paths.appPaths.appSrc
 
 // requires babel hook, import babel and start to transpile code with babel presets.
-require('@babel/register')(config)
+require(paths.appPaths.nodeModulePath + '/@babel/register')(config)
 
-// validate the application, it has to be instanceof app
+// validate the application, it has to be instanceof express app
 const app = require(paths.appPaths.appSrc)
 const server = http.createServer(app)
 

@@ -13,7 +13,7 @@ rimraf.sync(paths.appPaths.distPath)
 
 // @todo catch error for this process
 const spawn = cp.spawnSync(
-  paths.appPaths.nodeModulePath + '/babel',
+  paths.appPaths.nodeModuleBinPath + '/babel',
   [
     '--config-file',
     paths.ownPaths.babelConfig,
