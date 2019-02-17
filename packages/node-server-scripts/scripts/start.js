@@ -18,8 +18,30 @@ config.cwd = paths.appPaths.appSrc
 require(paths.appPaths.nodeModulePath + '/@babel/register')(config)
 
 // validate the application, it has to be instanceof express app
-const app = require(paths.appPaths.appSrc)
-const server = http.createServer(app)
+let app = require(paths.appPaths.appSrc)
+
+// if the application is exported via es6 module,
+// retrieve it from default attribute.
+if (app.default) {
+  app = app.default
+}
+
+if (!app) {
+  console.log(
+    'express application is not declared! ' +
+    'Please provide entry script for your application:'
+  )
+  console.log()
+  console.log(
+    'import express from \'express\'' +
+    'const app = express()' +
+    'export default app'
+  )
+
+  process.exit(1)
+}
+
+const server = http.createServer(app.default)
 
 // @todo read application hosting from env instead of hardcoded here
 server.listen(PORT, err => {
