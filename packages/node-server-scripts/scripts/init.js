@@ -89,19 +89,10 @@ module.exports = rootPath => {
     JSON.stringify(packageJson, null, 2) + os.EOL,
   )
 
-  const depsToBeInstalled = {}
-  depsToBeInstalled[DEV_DEPENDENCIES] = depPackageJson.devDependencies
-  depsToBeInstalled[DEPENDENCIES] = depPackageJson.dependencies
-
-  const deps = Object
-    .keys(depsToBeInstalled)
-    .map(depType => installDependencies(depsToBeInstalled[depType], depType))
-
-  Promise
-    .all(deps)
-    .then(() => {
-      console.log('done initializing')
-    })
+  installDependencies(depPackageJson.devDependencies, DEV_DEPENDENCIES)
+    .then(
+      () => installDependencies(depPackageJson.dependencies, DEPENDENCIES).catch(err => Promise.reject(err))
+    )
     .catch(err => {
       console.error('abort initialization: ', err)
     })
