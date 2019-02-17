@@ -2,6 +2,9 @@
   "name": "@huangc28/server-scripts",
   "version": "0.1.10",
   "description": "Entry script to handle corresponding action",
+  "scripts": {
+    "test": "jest **/tests"
+  },
   "bin": {
     "server-scripts": "./bin/create-node-script.js"
   },
@@ -17,6 +20,7 @@
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
+    "jest": "^24.1.0",
     "nodemon": "^1.18.9",
     "rimraf": "^2.6.3"
   }

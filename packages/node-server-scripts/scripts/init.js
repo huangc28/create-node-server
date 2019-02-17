@@ -8,6 +8,7 @@
 const fs = require('fs-extra')
 const path = require('path')
 const cp = require('child_process')
+const os = require('os')
 
 const paths = require('../utils/path')
 
@@ -49,10 +50,14 @@ function installDependencies (dependencies) {
   })
 }
 
-module.exports = (
-  rootPath,
-  dependencies,
-) => {
+/**
+ * Creates application project and setups the following:
+ *  - package.json
+ *  - install dependecies for the application
+ *
+ * @param {String} application path specified
+ */
+module.exports = rootPath => {
   const srcDir = path.resolve(rootPath, 'src')
   const entryFilename = path.resolve(srcDir, 'index.js')
 

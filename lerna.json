@@ -1,0 +1,15 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "npmClient": "npm",
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "*.md",
+        "tests/**"
+      ]
+    }
+  },
+  "version": "independent"
+}
