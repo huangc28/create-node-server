@@ -1,6 +1,6 @@
 {
   "name": "@huangc28/server-scripts",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Entry script to handle corresponding action",
   "scripts": {
     "test": "jest **/tests"
@@ -11,9 +11,9 @@
   "author": "Bryan Huang <huangchiheng@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "fs-extra": "^7.0.1",
     "chalk": "^2.4.2",
-    "dotenv": "^6.2.0"
+    "dotenv": "^6.2.0",
+    "fs-extra": "^7.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

@@ -1,6 +1,6 @@
 {
   "name": "@huangc28/create-node-server",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Creates and initialize node server.",
   "bin": {
     "create-node-server": "index.js"
