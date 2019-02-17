@@ -1,6 +1,6 @@
 {
   "name": "@huangc28/server-scripts",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "Entry script to handle corresponding action",
   "scripts": {
     "test": "jest **/tests"
