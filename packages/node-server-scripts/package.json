@@ -1,6 +1,6 @@
 {
   "name": "@huangc28/server-scripts",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Entry script to handle corresponding action",
   "scripts": {
     "test": "jest **/tests"
@@ -13,9 +13,9 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "dotenv": "^6.2.0",
+    "express": "4.16.4",
     "fs-extra": "^7.0.1",
-    "webpack": "^4.29.4",
-    "express": "4.16.4"
+    "webpack": "^4.29.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
