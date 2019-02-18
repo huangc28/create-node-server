@@ -175,7 +175,6 @@ function install (
     const command = 'npm'
     const args = [
       'install',
-      'save',
       '--save-exact',
     ].concat(dependencies)
 
