@@ -5,11 +5,11 @@ process.env.NODE_ENV = 'production'
 process.env.BABEL_ENV = 'production'
 
 const rimraf = require('rimraf')
-const webpack = require('webpack')
 const chalk = require('chalk')
 
 const config = require('../config/webpack.config')()
 const paths = require('../utils/path')
+const webpack = require(paths.appPaths.nodeModulePath + '/webpack')
 
 rimraf.sync(paths.appPaths.distPath)
 
