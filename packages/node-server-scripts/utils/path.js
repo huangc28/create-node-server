@@ -24,6 +24,7 @@ const ownPaths = {
   ownPath: resolveOwn('.'),
   configPath: resolveOwn('config'),
   babelConfig: resolveOwn('config/.babelrc'),
+  webpackConfig: resolveOwn('config/webpack.config.js'),
   packageJsonPath: resolveOwn('package.json'),
 }
 

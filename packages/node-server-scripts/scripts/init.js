@@ -1,3 +1,5 @@
+'use strict'
+
 // 1. create basic folder strcture for the project directory
 // 2. append "scripts" on package.json with the following command:
 //   - build: server-script build

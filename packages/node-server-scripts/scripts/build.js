@@ -5,28 +5,29 @@ process.env.NODE_ENV = 'production'
 process.env.BABEL_ENV = 'production'
 
 const rimraf = require('rimraf')
-const cp = require('child_process')
+const webpack = require('webpack')
+const chalk = require('chalk')
 
+const config = require('../config/webpack.config')()
 const paths = require('../utils/path')
 
 rimraf.sync(paths.appPaths.distPath)
 
 // @todo catch error for this process
-const spawn = cp.spawnSync(
-  paths.appPaths.nodeModuleBinPath + '/babel',
-  [
-    '--config-file',
-    paths.ownPaths.babelConfig,
-    paths.appPaths.appSrc,
-    '-d',
-    'dist'
-  ],
-  {
-    stdio: 'inherit',
-  },
-)
+webpack(config, (err, stats) => {
+  if (err || stats.hasErrors()) {
+    console.log('stats', stats)
 
-if (spawn.error) {
-  console.log('unable to build application with babel. exit with error:' + spawn.error)
-  process.exit()
-}
+    console.log(
+      'unable to build application with webpack + babel-loader. exit with error:' +
+      stats.toString()
+    )
+    process.exit(1)
+  }
+
+  console.log(chalk.green('success!'))
+  console.log()
+  console.log(
+    'Production bundle is now placed in: ' + chalk.cyan(paths.appPaths.distPath)
+  )
+})
