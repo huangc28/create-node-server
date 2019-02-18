@@ -21,7 +21,7 @@ if (!distExists) {
 
 const app = require(paths.appPaths.distPath + '/index.js')
 
-const server = http.createServer(app)
+const server = http.createServer(app.default)
 server.listen(PORT, function(err) {
   if (err) {
     console.log(err.message)
