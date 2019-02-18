@@ -5,12 +5,13 @@ const paths = require('../utils/path')
 
 const babelConfig = JSON.stringify(fs.readFileSync(paths.ownPaths.babelConfig, 'utf-8'))
 
-module.exports = env => {
+module.exports = () => {
   return {
+    model: 'production',
     entry: path.resolve(paths.appPaths.appSrc + '/index.js'),
     output: {
       path: path.resolve(paths.appPaths.distPath),
-      filename: 'app.js'
+      filename: 'main.js'
     },
     module: {
       rules: [

@@ -25,6 +25,7 @@ webpack(config, (err, stats) => {
     process.exit(1)
   }
 
+  console.log()
   console.log(chalk.green('success!'))
   console.log()
   console.log(

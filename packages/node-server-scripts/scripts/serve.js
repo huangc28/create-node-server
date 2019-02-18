@@ -9,17 +9,18 @@ const http = require('http')
 require('../config/env')
 const paths = require('../utils/path')
 const PORT = process.env.PORT || 3000
-const distExists = fs.existsSync(paths.appPaths.distPath)
+const distExists = fs.existsSync(paths.appPaths.distPath + '/main.js')
 
 if (!distExists) {
   console.log('Dist directory does not seem to exists. ' +
   'Please build the production script before serving it'
   )
 
-  process.exit()
+  process.exit(1)
 }
 
-const app = require(paths.appPaths.distPath)
+const app = require(paths.appPaths.distPath + '/main.js')
+
 const server = http.createServer(app)
 server.listen(PORT, function(err) {
   if (err) {
