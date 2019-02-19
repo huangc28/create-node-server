@@ -60,6 +60,32 @@ function installDependencies(dependencies, depType = DEPENDENCIES) {
   })
 }
 
+const createGitIgnoreFile = () => {
+  const destPath = path.resolve(paths.appPaths.appPath, '.gitignore')
+
+  return new Promise(() => {
+    fs.open(destPath, 'w', err => {
+      if (err) {
+        console.error('unable to create' + chalk.red('.gitignore') + 'in the project directory')
+        reject(err)
+      }
+
+      const content = [
+        'node_modules'
+      ]
+
+      fs.writeFile(destPath, content.join(os.EOL), err => {
+        if (err) {
+          console.error(chalk.red('unable to write content to .gitignore file'))
+          reject(err)
+        }
+
+        resolve()
+      })
+    })
+  })
+}
+
 /**
  * Creates application project and setups the following:
  *  - package.json
@@ -95,6 +121,7 @@ module.exports = rootPath => {
     .then(
       () => installDependencies(depPackageJson.dependencies, DEPENDENCIES).catch(err => Promise.reject(err))
     )
+    .then(createGitIgnoreFile)
     .catch(err => {
       console.error('abort initialization: ', err)
     })
