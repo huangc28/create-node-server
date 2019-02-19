@@ -1,13 +1,23 @@
 # Create node server
 
 Waste no time on setting up babel, various presets, expressjs, typescript...etc.
-Start developing your server side code fast.
+Start developing your server side code with above tools with a command.
 
 I found myself recreating the same server side framework repetitively every time I try to
 start a new project. **create-node-server** integrates the most common tools you'll need
 for development. Just dive into the development straigh ahead.
 
-## Early stage!
+This tool has the minimum setup to start a project with babel transpiling, eslint and jest.
+
+# What stack are embedded?
+
+- babel
+- expressjs
+- eslint (WIP)
+- jest (WIP)
+- typescript (WIP)
+
+## Early stage notify!
 
 This project is in it's early stage. Much of the work are left to be done. PRs and suggestions are welcomed!!
 
