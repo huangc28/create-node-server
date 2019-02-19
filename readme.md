@@ -9,7 +9,7 @@ for development. Just dive into the development straigh ahead.
 
 This tool has the minimum setup to start a project with babel transpiling, eslint and jest.
 
-# What stack are embedded?
+# What stacks are embedded?
 
 - babel
 - expressjs
